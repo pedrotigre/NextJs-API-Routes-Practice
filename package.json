@@ -1,0 +1,28 @@
+{
+  "name": "nextjs-course",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "^12.2.3",
+    "react": "17.0.1",
+    "react-dom": "17.0.1"
+  },
+  "main": "index.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pedrotigre/NextJs-API-Routes-Practice.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pedrotigre/NextJs-API-Routes-Practice/issues"
+  },
+  "homepage": "https://github.com/pedrotigre/NextJs-API-Routes-Practice#readme",
+  "description": ""
+}
