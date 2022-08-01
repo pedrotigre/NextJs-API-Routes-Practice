@@ -49,7 +49,7 @@ function HomePage() {
           <textarea id="feedback" rows="5" ref={feedbackInputRef}></textarea>
         </div>
         <button>Submit</button>
-        <div>{submitFeedbackMessage}</div>
+        {submitFeedbackMessage && <p>{submitFeedbackMessage}</p>}
       </form>
       <div>
         <hr />

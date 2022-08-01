@@ -1,12 +1,28 @@
 import { getFeedbackPath, getFileData } from '../api/feedback';
+import { useState } from 'react';
 
 function FeedbackPage(props) {
+  const [feedbackEmail, setFeedbackEmail] = useState();
+  // NO NEED FOR FETCH, JUST AN EXAMPLE OF DYNAMIC API FETCH (WE COULD JUST USE THE PROPS)
+  function loadFeedbackIdHandler(id) {
+    fetch(`/api/feedback/${id}`)
+      .then((response) => response.json())
+      .then((data) => setFeedbackEmail(data.feedback.email));
+  }
   return (
-    <ul>
-      {props.feedbackItems.map((item) => (
-        <li key={item.id}>{item.text}</li>
-      ))}
-    </ul>
+    <>
+      {feedbackEmail && <p>{feedbackEmail}</p>}
+      <ul>
+        {props.feedbackItems.map((item) => (
+          <li key={item.id}>
+            <p>{item.text}</p>
+            <button onClick={loadFeedbackIdHandler.bind(null, item.id)}>
+              Details
+            </button>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }
 

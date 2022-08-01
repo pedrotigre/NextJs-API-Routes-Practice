@@ -31,10 +31,10 @@ async function handler(req, res) {
     // Update feedback.json with the new data
     await setFeedbackData(filePath, data);
 
-    return res.status(201).json({ message: 'Feedback received!' });
+    res.status(201).json({ message: 'Feedback received!' });
   }
   if (req.method === 'GET') {
-    return res.status(200).json({ feedback: data });
+    res.status(200).json({ feedback: data });
   }
 }
 export default handler;
