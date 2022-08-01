@@ -1,12 +1,21 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 function HomePage() {
+  const [feedbacks, setFeedbacks] = useState([]);
+  const [submitFeedbackMessage, setSubmitFeedbackMessage] = useState();
   const emailInputRef = useRef();
   const feedbackInputRef = useRef();
+
   function submitFormHandler(event) {
     event.preventDefault();
+
     const enteredEmail = emailInputRef.current.value;
     const enteredFeedback = feedbackInputRef.current.value;
+
+    if (enteredEmail.length === 0 || enteredFeedback.length === 0) {
+      return setSubmitFeedbackMessage('Fields cannot be empty!');
+    }
+
     fetch('/api/feedback', {
       method: 'POST',
       body: JSON.stringify({ email: enteredEmail, text: enteredFeedback }),
@@ -15,8 +24,17 @@ function HomePage() {
       },
     })
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) => setSubmitFeedbackMessage(data.message));
   }
+
+  function getFeedbackData(event) {
+    event.preventDefault();
+
+    fetch('/api/feedback')
+      .then((response) => response.json())
+      .then((data) => setFeedbacks(data.feedback));
+  }
+
   return (
     <div>
       <form onSubmit={submitFormHandler}>
@@ -31,7 +49,17 @@ function HomePage() {
           <textarea id="feedback" rows="5" ref={feedbackInputRef}></textarea>
         </div>
         <button>Submit</button>
+        <div>{submitFeedbackMessage}</div>
       </form>
+      <div>
+        <hr />
+        <button onClick={getFeedbackData}>Show feedbacks</button>
+        <ul>
+          {feedbacks.map((item) => (
+            <li key={item.id}>{item.text}</li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
