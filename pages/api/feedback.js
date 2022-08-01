@@ -1,10 +1,10 @@
 import fs from 'fs/promises';
 import path from 'path';
 
-function getFeedbackPath() {
+export function getFeedbackPath() {
   return path.join(process.cwd(), 'data', 'feedback.json');
 }
-async function getFileData(path) {
+export async function getFileData(path) {
   return JSON.parse(await fs.readFile(path));
 }
 
